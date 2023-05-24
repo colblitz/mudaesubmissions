@@ -1,0 +1,9 @@
+ - add submission models
+ - display submissions on main page
+ - form for submitting submissions
+ - comments
+ - characters
+ - admin view
+
+ - https
+ - expire JWT session?
