@@ -57,8 +57,10 @@ app.use(express.json());
 
 // set up routes
 const authRoutes = require("./routes/auth");
+const submissionRoutes = require("./routes/submission");
 
 app.use("/auth", authRoutes);
+app.use("/submission", submissionRoutes);
 
 app.all("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build", "index.html"));
