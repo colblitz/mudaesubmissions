@@ -1,0 +1,112 @@
+.character-card {
+  border-left: 4px solid rgb(255, 156, 44);
+}
+
+.character-card .grid-container {
+  max-width: 516px;
+}
+
+.character-card .grid-container .grid {
+  overflow: hidden;
+  padding: 0.5rem 1rem 1rem 0.75rem;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+}
+
+.character-card .grid-container .grid .embedAuthor{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    grid-column: 1/1;
+}
+
+.character-card .grid-container .grid .embedMargin {
+      margin-top: 8px;
+}
+
+.character-card .grid-container .grid .embedAuthorName {
+      font-size: 0.875rem;
+    font-weight: 600;
+        unicode-bidi: plaintext;
+    text-align: left;
+}
+
+.character-card .grid-container .grid .embedDescription {
+  min-width: 0;
+  font-size: 0.875rem;
+    line-height: 1.125rem;
+    font-weight: 400;
+    white-space: pre-line;
+    grid-column: 1/1;
+        unicode-bidi: plaintext;
+    text-align: left;
+}
+
+.character-card .grid-container .grid .emojiContainer {
+  display: inline-block;
+}
+
+.character-card .grid-container .grid .emojiContainer img {
+  height: 18px;
+}
+
+.character-card .grid-container .grid .imageContent {
+      -webkit-box-orient: vertical;
+    -ms-flex-flow: column nowrap;
+    flex-flow: column nowrap;
+    -ms-flex: auto;
+    flex: auto;
+
+}
+
+.character-card .grid-container .grid .embedWrapper {
+  
+}
+
+.character-card .grid-container .grid .embedMedia {
+  grid-column: 1/1;
+    border-radius: 4px;
+    contain: paint;
+}
+
+.character-card .grid-container .grid .embedImage {
+      display: block;
+    -o-object-fit: fill;
+    object-fit: fill;
+}
+
+.character-card .grid-container .grid .imageContainer {
+      -webkit-box-orient: horizontal;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -ms-flex: auto;
+    flex: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.character-card .grid-container .grid .imageWrapper {
+      display: block;
+    position: relative;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    overflow: hidden;
+    border-radius: 3px;
+    max-width: 193px;
+    width: 100%;
+    aspect-ratio: 193 / 300;
+}
+
+.character-card .grid-container .grid .image {
+  max-width: 193px;
+  max-height: 300px;
+  width: 100%;
+  display: block;
+  aspect-ratio: 193 / 300;
+}

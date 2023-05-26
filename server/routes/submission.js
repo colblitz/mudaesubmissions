@@ -34,23 +34,27 @@ expressRouter.post("/addSeries", authMiddleware, async (req, res) => {
   try {
     console.log("adding series");
     const { userId } = req.user;
-    const { name, details } = req.body;
+    // const { name, details } = req.body;
     // TODO: validate name + details
-    const newSeries = await Series.create({ user: userId, name, details });
-      // user: userId,
-      // name: name,
-      // details: details,
-      // characters: [] });
-
-
-  // user: { type: mongoose.Types.ObjectId, ref: "user" },
-  // name: { type: String },
-  // details: { type: String },
-  // characters: [{ type: Schema.Types.ObjectId, ref: "character" }]
-
+    const newSeries = await Series.create({...req.body, user: userId });
     return res.json(newSeries);
   } catch (error) {
     console.log("error adding series");
+    console.log(error);
+    return res.status(400).json({ message: error.message });
+  }
+});
+
+expressRouter.post("/addCharacter", authMiddleware, async (req, res) => {
+  try {
+    console.log("adding character");
+    const { userId } = req.user;
+    // const { name, gender, type, series, seriesName, imgurLink, source, role, note } = req.body;
+    // TODO: validate name + details
+    const newCharacter = await Character.create({...req.body, user: userId });
+    return res.json(newCharacter);
+  } catch (error) {
+    console.log("error adding character");
     console.log(error);
     return res.status(400).json({ message: error.message });
   }
