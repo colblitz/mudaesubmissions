@@ -15,27 +15,27 @@
 }
 
 .character-card .grid-container .grid .embedAuthor{
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    grid-column: 1/1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  grid-column: 1/1;
 }
 
 .character-card .grid-container .grid .embedMargin {
-      margin-top: 8px;
+  margin-top: 8px;
 }
 
 .character-card .grid-container .grid .embedAuthorName {
-      font-size: 0.875rem;
-    font-weight: 600;
-        unicode-bidi: plaintext;
-    text-align: left;
+  font-size: 0.875rem;
+  font-weight: 600;
+  unicode-bidi: plaintext;
+  text-align: left;
 }
 
-.character-card .grid-container .grid .embedDescription {
+.character-card .grid-container .grid .embedText {
   min-width: 0;
   font-size: 0.875rem;
     line-height: 1.125rem;
@@ -46,6 +46,47 @@
     text-align: left;
 }
 
+.character-card .grid-container .grid .embedImage {
+  display: block;
+  -o-object-fit: fill;
+  object-fit: fill;
+  grid-column: 1/1;
+  border-radius: 4px;
+  contain: paint;
+}
+
+.character-card .grid-container .grid .imageContainer {
+  -webkit-box-orient: horizontal;
+  -ms-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+  -ms-flex: auto;
+  flex: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.character-card .grid-container .grid .imageWrapper {
+  display: block;
+  position: relative;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  overflow: hidden;
+  border-radius: 3px;
+  max-width: 193px;
+  width: 100%;
+  aspect-ratio: 193 / 300;
+}
+
+.character-card .grid-container .grid .image {
+  max-width: 193px;
+  max-height: 300px;
+  width: 100%;
+  display: block;
+  aspect-ratio: 193 / 300;
+}
+
 .character-card .grid-container .grid .emojiContainer {
   display: inline-block;
 }
@@ -53,6 +94,23 @@
 .character-card .grid-container .grid .emojiContainer img {
   height: 18px;
 }
+
+
+
+/*
+
+.character-card .grid-container .grid .embedFooter {
+  min-width: 0;
+  font-size: 0.875rem;
+    line-height: 1.125rem;
+    font-weight: 400;
+    white-space: pre-line;
+    grid-column: 1/1;
+        unicode-bidi: plaintext;
+    text-align: left;
+}
+
+
 
 .character-card .grid-container .grid .imageContent {
       -webkit-box-orient: vertical;
@@ -79,15 +137,7 @@
     object-fit: fill;
 }
 
-.character-card .grid-container .grid .imageContainer {
-      -webkit-box-orient: horizontal;
-    -ms-flex-flow: row nowrap;
-    flex-flow: row nowrap;
-    -ms-flex: auto;
-    flex: auto;
-    width: 100%;
-    height: 100%;
-}
+
 
 .character-card .grid-container .grid .imageWrapper {
       display: block;
@@ -103,10 +153,4 @@
     aspect-ratio: 193 / 300;
 }
 
-.character-card .grid-container .grid .image {
-  max-width: 193px;
-  max-height: 300px;
-  width: 100%;
-  display: block;
-  aspect-ratio: 193 / 300;
-}
+*/

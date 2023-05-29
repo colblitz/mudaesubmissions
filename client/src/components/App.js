@@ -5,6 +5,8 @@ import { useContext } from "react";
 import "../stylesheets/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import Container from 'react-bootstrap/Container';
+
 import { Context } from "./ContextProvider";
 import Home from "./Home";
 import UserPage from "./UserPage";
@@ -17,11 +19,13 @@ function App() {
   return (
     <div className="page mh-100">
       <Navbar />
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/me" element={<UserPage />} />
-        <Route exact path="/login/success" element={<LoginSuccess />} />
-      </Routes>
+      <Container fluid>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/me" element={<UserPage />} />
+          <Route exact path="/login/success" element={<LoginSuccess />} />
+        </Routes>
+      </Container>
       <Footer />
     </div>
   );

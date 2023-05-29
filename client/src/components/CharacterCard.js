@@ -1,10 +1,35 @@
-import { Card, Table } from 'react-bootstrap';
+import { useContext } from "react";
+import { Col, Card, Button } from 'react-bootstrap';
+import axios from "axios";
+
 import "../stylesheets/CharacterCard.css";
 
+import { Context } from "./ContextProvider";
+
 const CharacterCard = (props) => {
+  const { token } = useContext(Context);
   const character = props.character;
-  console.log("Character card - got character");
-  console.log(character);
+  const characterRemoved = props.characterRemoved;
+
+  const handleRemoveCharacter = async function (e, characterId) {
+    e.preventDefault();
+    console.log("Remove character ", characterId);
+    
+    const request = {
+      method: "DELETE",
+      url: "/submission/removeCharacter",
+      headers: { Authorization: `Bearer ${token}` },
+      data: { characterId },
+    };
+    axios.request(request)
+      .then((response) => {
+        console.log("===>>", response.data);
+        characterRemoved(characterId);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   const female = (
     <span className="emojiContainer">
@@ -38,84 +63,42 @@ const CharacterCard = (props) => {
   }
 
   return (
-    <Card className="character-card">
-      <div className="grid-container">
-        <div className="grid">
-          <div className="embedAuthor embedMargin">
-            <span className="embedAuthorName">{character.name}</span>
-          </div>
-          <div className="embedDescription embedMargin">
-            <span>
-            {character.seriesName}
-            {gender}
-            </span>
-            <span>{roulette}</span>
-          </div>
-          <div className="imageContent embedWrapper embedMedia embedImage">
-            <div className="imageContainer">
-              <div className="imageWrapper imageZoom">
-                <img className="image"
-                  alt="Image"
-                  src={character.imgurLink}
-                />
+    <Col xs="auto">
+      <Card className="character-card">
+        <div className="grid-container">
+          <div className="grid">
+            <div className="embedAuthor embedMargin">
+              <span className="embedAuthorName">{character.name}</span>
+            </div>
+            <div className="embedText embedMargin">
+              {character.seriesName}
+              {gender}
+              {"\n"}{roulette}
+            </div>
+            <div className="embedImage">
+              <div className="imageContainer">
+                <div className="imageWrapper imageZoom">
+                  <img className="image"
+                    alt="Image"
+                    src={character.imgurLink}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div className="embedFooter embedMargin">
-            <span className="embedFooterText">
+            <div className="embedText embedMargin">
               {character.imgurLink}
-            </span>
+              {"\n"}Source: {character.source}
+              {"\n"}Role: {character.role}
+              {"\n"}Note: {character.note}
+            </div>
+            <Button variant="danger" size="sm" onClick={(e) => handleRemoveCharacter(e, character._id)}>
+              Remove
+            </Button>
           </div>
-        </div>
-      </div>
-
-
-      
-    </Card>
+        </div>    
+      </Card>
+    </Col>
   )
 };
 
 export default CharacterCard;
-
-
-
-
-
-
-
-// class MouseTracker extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.handleMouseMove = this.handleMouseMove.bind(this);
-//     this.state = { x: 0, y: 0 };
-//   }
-
-//   handleMouseMove(event) {
-//     this.setState({
-//       x: event.clientX,
-//       y: event.clientY
-//     });
-//   }
-
-//   render() {
-//     return (
-//       <div style={{ height: '100vh' }} onMouseMove={this.handleMouseMove}>
-//         <h1>Move the mouse around!</h1>
-//         <p>The current mouse position is ({this.state.x}, {this.state.y})</p>
-//       </div>
-//     );
-//   }
-// }
-
-
-
-
-// const Footer = () => {
-//   return (
-//     <Card.Footer className="text-muted">
-//       This is a footer.
-//     </Card.Footer>
-//   );
-// };
-
-// export default Footer;

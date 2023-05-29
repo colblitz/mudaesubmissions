@@ -60,6 +60,34 @@ expressRouter.post("/addCharacter", authMiddleware, async (req, res) => {
   }
 });
 
+expressRouter.delete("/removeCharacter", authMiddleware, async (req, res) => {
+  try {
+    console.log("adding character");
+    const { userId } = req.user;
+    // const { name, gender, type, series, seriesName, imgurLink, source, role, note } = req.body;
+    // TODO: validate name + details
+
+    console.log("deleting doc with id: ");
+    console.log(req.body.characterId);
+    await Character.deleteOne({ _id: req.body.characterId });
+
+    return res.json();
+
+//     User.deleteOne({ age: { $gte: 10 } }).then(function(){
+//     console.log("Data deleted"); // Success
+// }).catch(function(error){
+//     console.log(error); // Failure
+// });
+
+    // const newCharacter = await Character.create({...req.body, user: userId });
+    // return res.json(newCharacter);
+  } catch (error) {
+    console.log("error adding character");
+    console.log(error);
+    return res.status(400).json({ message: error.message });
+  }
+});
+
 // expressRouter.patch(
 //   "/updateSubmission/:submissionId",
 //   authMiddleware,

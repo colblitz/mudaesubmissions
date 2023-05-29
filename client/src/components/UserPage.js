@@ -107,6 +107,13 @@ const UserPage = () => {
       });
   }
 
+  const handleCharacterRemoved = async function (characterId) {
+    console.log(`Removing character with id ${characterId} from state array`)
+    setSubmittedCharacters(submittedCharacters.filter(function(character) {
+      return character._id !== characterId
+    }));
+  }
+
   // const updateValue = (e, stateSetter, stateObject, fieldName) => {
   //   stateSetter({...stateObject, fieldName: e.target.values})
   // };
@@ -115,7 +122,7 @@ const UserPage = () => {
     <div className="user-page">
       Hi {username}. This is your user page.
 
-      <Container>
+      <Container className>
         <Row>
           <Col xs={12} md={6}>
             <Form className="container w-75" onSubmit={handleAddSeries}>
@@ -198,14 +205,16 @@ const UserPage = () => {
         </Row>
       </Container>
 
-      <Container>
-        {submittedCharacters.map((character) => (
-          <CharacterCard character={character}/>
-        ))}
+      <Container fluid>
+        <Row>
+          {submittedCharacters.map((character) => (
+            <CharacterCard character={character} characterRemoved={handleCharacterRemoved} />
+          ))}
+        </Row>
       </Container>
 
 
-      <Container>
+      <Container fluid>
         {submittedSeries.map((series) => (
           <Card>
             <Card.Header>{series.name}</Card.Header>

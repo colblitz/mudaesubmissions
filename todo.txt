@@ -1,3 +1,28 @@
+design
+ - u4g - select 2 out of your character submissions?
+ - when viewing another user's, "submit as me" button - removes from their view? copies?
+ - collapsible sections - https://react-bootstrap.netlify.app/docs/utilities/transitions/#collapse vs tabs?
+ - dropdown series vs 
+
+functionality:
+ - attach character to series
+ - edit character
+ - edit series
+ - see all series submissions
+ - see all character submissions
+ - see other user's page
+ - comments
+ - role restrictions
+ - admin voting
+ - admin views
+ - check imgur size upon submit
+ - check duplicate character upon submit
+ - check character exists?
+
+styling
+
+
+
  - add submission models
  - display submissions on main page
  - form for submitting submissions
