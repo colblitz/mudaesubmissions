@@ -20,6 +20,10 @@ expressRouter.get(
     );
 
     console.log("got response from discord: ", response.data);
+    // "815893375189516290": "The SOS Brigade"
+    // "914295419935289375": "Mudae Contributor"
+    // "846432522619715584": "Sibyl Subsystem"
+    // "573415404760858624": "Patrol (Help Master)"
 
     const findUser = await User.findOne({ discordUserId: profile.id });
     if (findUser) {

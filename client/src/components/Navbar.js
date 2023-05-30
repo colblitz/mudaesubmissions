@@ -29,8 +29,13 @@ function NavigationBar() {
                 Submissions
               </NavLink>
               {token && (
-                <NavLink className="nav-link" to="/me">
-                  My Submissions
+                <NavLink className="nav-link" to="/mySeries">
+                  My Series
+                </NavLink>
+              )}
+              {token && (
+                <NavLink className="nav-link" to="/myCharacters">
+                  My Characters
                 </NavLink>
               )}
             </Nav>

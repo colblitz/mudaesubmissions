@@ -9,7 +9,8 @@ import Container from 'react-bootstrap/Container';
 
 import { Context } from "./ContextProvider";
 import Home from "./Home";
-import UserPage from "./UserPage";
+import UserSeriesSubmissions from "./UserSeriesSubmissions";
+import UserCharacterSubmissions from "./UserCharacterSubmissions";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import LoginSuccess from "./LoginSuccess";
@@ -22,7 +23,8 @@ function App() {
       <Container fluid>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/me" element={<UserPage />} />
+          <Route exact path="/mySeries" element={<UserSeriesSubmissions />} />
+          <Route exact path="/myCharacters" element={<UserCharacterSubmissions />} />
           <Route exact path="/login/success" element={<LoginSuccess />} />
         </Routes>
       </Container>

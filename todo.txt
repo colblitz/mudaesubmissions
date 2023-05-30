@@ -4,6 +4,20 @@ design
  - collapsible sections - https://react-bootstrap.netlify.app/docs/utilities/transitions/#collapse vs tabs?
  - dropdown series vs 
 
+
+ - page for user overview
+ - page for series submission/editing
+ - page for U4G submission/editing
+ - page for character submission/editing
+
+ - view all series submissions
+
+ - view all U4Gs by series
+ - view U4Gs by user
+
+refactoring
+ - turn character submission into a component
+
 functionality:
  - attach character to series
  - edit character
@@ -18,6 +32,8 @@ functionality:
  - check imgur size upon submit
  - check duplicate character upon submit
  - check character exists?
+ - sanitize inputs
+ - import from discord messages
 
 styling
 

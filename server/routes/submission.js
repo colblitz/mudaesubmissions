@@ -22,6 +22,9 @@ expressRouter.get("/getUserSubmissions", authMiddleware, async (req, res) => {
     const series = await Series.find({ user: userId }).populate("characters");
     const characters = await Character.find({ user: userId, series: null });
 
+    console.log('return series: %j', series);
+    console.log("returning characters: ", characters);
+
     return res.json({ series: series, characters: characters });
   } catch (error) {
     console.log("error getting user submissions");
@@ -47,12 +50,23 @@ expressRouter.post("/addSeries", authMiddleware, async (req, res) => {
 
 expressRouter.post("/addCharacter", authMiddleware, async (req, res) => {
   try {
-    console.log("adding character");
+    console.log("adding character: ", req.body);
     const { userId } = req.user;
     // const { name, gender, type, series, seriesName, imgurLink, source, role, note } = req.body;
     // TODO: validate name + details
     const newCharacter = await Character.create({...req.body, user: userId });
-    return res.json(newCharacter);
+    if (req.body.series) {
+      console.log("This was for a series");
+      // await Series.findOneAndUpdate({ _id: req.body.series }, { $inc: { no_of_likes: 1 }, "$push": { "users": userInfo } });
+      await Series.findOneAndUpdate({ _id: req.body.series }, { "$push": { "characters": newCharacter._id } });
+
+      const series = await Series.find({ user: userId }).populate("characters");
+      console.log("returning series: ", series);
+
+      return res.json({ series: series });
+    } else {
+      return res.json(newCharacter);  
+    }
   } catch (error) {
     console.log("error adding character");
     console.log(error);
@@ -60,9 +74,38 @@ expressRouter.post("/addCharacter", authMiddleware, async (req, res) => {
   }
 });
 
+expressRouter.delete("/removeSeries", authMiddleware, async (req, res) => {
+  try {
+    console.log("removing series");
+    const { userId } = req.user;
+    // const { name, gender, type, series, seriesName, imgurLink, source, role, note } = req.body;
+    // TODO: validate name + details
+
+    console.log(req.body.seriesId);
+
+    console.log("deleting characters for series id: ");
+    await Character.deleteMany({ series: req.body.seriesId });
+    
+    console.log("deleting doc with id: ");
+    await Series.deleteOne({ _id: req.body.seriesId });
+
+    return res.json();
+
+    // const series = await Series.find({ user: userId }).populate("characters");
+    // console.log("returning series: ", series);
+
+    // return res.json({ series: series });
+  } catch (error) {
+    console.log("error removing series character");
+    console.log(error);
+    return res.status(400).json({ message: error.message });
+  }
+});
+
+
 expressRouter.delete("/removeCharacter", authMiddleware, async (req, res) => {
   try {
-    console.log("adding character");
+    console.log("removing character");
     const { userId } = req.user;
     // const { name, gender, type, series, seriesName, imgurLink, source, role, note } = req.body;
     // TODO: validate name + details
@@ -73,20 +116,18 @@ expressRouter.delete("/removeCharacter", authMiddleware, async (req, res) => {
 
     return res.json();
 
-//     User.deleteOne({ age: { $gte: 10 } }).then(function(){
-//     console.log("Data deleted"); // Success
-// }).catch(function(error){
-//     console.log(error); // Failure
-// });
+    // const characters = await Character.find({ user: userId, series: null });
+    // console.log("returning characters: ", characters);
 
-    // const newCharacter = await Character.create({...req.body, user: userId });
-    // return res.json(newCharacter);
+    // return res.json({ characters: characters });
   } catch (error) {
     console.log("error adding character");
     console.log(error);
     return res.status(400).json({ message: error.message });
   }
 });
+
+
 
 // expressRouter.patch(
 //   "/updateSubmission/:submissionId",

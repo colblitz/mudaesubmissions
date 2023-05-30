@@ -9,11 +9,9 @@ import axios from "axios";
 import { Container, Button, Form, Row, Col, Card, Table, FloatingLabel } from "react-bootstrap";
 
 import { Context } from "./ContextProvider";
-import CharacterCard from "./CharacterCard";
+import SeriesCard from "./SeriesCard";
 
-const UserPage = () => {
-	console.log("UserPage start");
-
+const UserSeriesSubmissions = () => {
   const { token, username } = useContext(Context);
 
   const [loading, setLoading] = useState(true);
@@ -25,6 +23,7 @@ const UserPage = () => {
     name: "",
     gender: "Male",
     type: "Animanga",
+    series: null,
     seriesName: "",
     imgurLink: "",
     source: "",
@@ -41,7 +40,7 @@ const UserPage = () => {
   // const [newName, setNewName] = useState("");
   // const [newDetails, setNewDetails] = useState("");
   const [submittedSeries, setSubmittedSeries] = useState([]);
-  const [submittedCharacters, setSubmittedCharacters] = useState([]);
+  // const [submittedCharacters, setSubmittedCharacters] = useState([]);
 
   const navigate = useNavigate();
 
@@ -57,9 +56,9 @@ const UserPage = () => {
         headers: { Authorization: `Bearer ${token}` },
       };
       axios.request(request).then((response) => {
-        console.log("===>>", response.data);
+        console.log("response for get user submissions ===>>", response.data);
         setSubmittedSeries(response.data.series);
-        setSubmittedCharacters(response.data.characters);
+        // setSubmittedCharacters(response.data.characters);
         // setSubmissions(response);
         // setLoading(false);
       });
@@ -77,7 +76,7 @@ const UserPage = () => {
     };
     axios.request(request)
       .then((response) => {
-        console.log("===>>", response.data);
+        console.log("response for add series ===>>", response.data);
         setSubmittedSeries([...submittedSeries, response.data])
         // setSubmissions([...submissions, response]);
         setLoading(false);
@@ -86,6 +85,29 @@ const UserPage = () => {
         console.log(error);
       });
   };
+
+  const handleRemoveSeries = async function (e, seriesId) {
+    e.preventDefault();
+    console.log("Remove series ", seriesId);
+    
+    const request = {
+      method: "DELETE",
+      url: "/submission/removeSeries",
+      headers: { Authorization: `Bearer ${token}` },
+      data: { seriesId },
+    };
+    axios.request(request)
+      .then((response) => {
+        console.log("response for remove series ===>>", response.data);
+        console.log(`Removing series with id ${seriesId} from state array`)
+        setSubmittedSeries(submittedSeries.filter(function(series) {
+          return series._id !== seriesId
+        }));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   const handleAddCharacter = async function (e) {
     e.preventDefault();
@@ -98,8 +120,10 @@ const UserPage = () => {
     };
     axios.request(request)
       .then((response) => {
-        console.log("===>>", response.data);
-        setSubmittedCharacters([...submittedCharacters, response.data])
+        console.log("response for add character ===>>");
+        console.log(response.data.series);
+        console.log(typeof(response.data.series));
+        setSubmittedSeries(response.data.series);
         setLoading(false);
       })
       .catch((error) => {
@@ -160,6 +184,7 @@ const UserPage = () => {
               <FloatingLabel controlId="floatingGender" label="Gender">
                 <Form.Select aria-label="Floating label select example"
                   onChange={(e) => setNewCharacter({...newCharacter, gender: e.target.value})} >
+                  <option>Select a value</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   <option value="Both">Both</option>
@@ -168,14 +193,19 @@ const UserPage = () => {
               <FloatingLabel controlId="floatingType" label="Roulette Type">
                 <Form.Select aria-label="Floating label select example"
                   onChange={(e) => setNewCharacter({...newCharacter, type: e.target.value})} >
+                  <option>Select a value</option>
                   <option value="Animanga">Animanga</option>
                   <option value="Game">Game</option>
                   <option value="Both">Both</option>
                 </Form.Select>
               </FloatingLabel>
-              <FloatingLabel controlId="floatingSeriesName" label="Series Name - leave blank if adding to a series">
-                <Form.Control type="text" placeholder="Name" 
-                  onChange={(e) => setNewCharacter({...newCharacter, seriesName: e.target.value})} />
+              <FloatingLabel controlId="floatingSeries" label="Series">
+                <Form.Select aria-label="Default select example" onChange={(e) => setNewCharacter({...newCharacter, series: e.target.value})}>
+                  <option>Select a value</option>
+                  {submittedSeries.map((series) => (
+                    <option value={series._id}>{series.name}</option>
+                  ))}
+                </Form.Select>
               </FloatingLabel>
               <FloatingLabel controlId="floatingImgurLink" label="Imgur Link">
                 <Form.Control type="text" placeholder="Name" 
@@ -205,27 +235,14 @@ const UserPage = () => {
         </Row>
       </Container>
 
-      <Container fluid>
-        <Row>
-          {submittedCharacters.map((character) => (
-            <CharacterCard character={character} characterRemoved={handleCharacterRemoved} />
-          ))}
-        </Row>
-      </Container>
-
 
       <Container fluid>
         {submittedSeries.map((series) => (
-          <Card>
-            <Card.Header>{series.name}</Card.Header>
-            <Card.Body>
-              {series.details}
-            </Card.Body>
-          </Card>
+          <SeriesCard series={series}/>
         ))}
       </Container>
     </div>
   );
 };
 
-export default UserPage;
+export default UserSeriesSubmissions;
