@@ -19,32 +19,28 @@ refactoring
  - turn character submission into a component
 
 functionality:
- - attach character to series
- - edit character
- - edit series
- - see all series submissions
  - see all character submissions
  - see other user's page
+ - edit character
+ - edit series
+ - submission restrictions - 10 series, 100 chars in series
+
  - comments
  - role restrictions
  - admin voting
  - admin views
- - check imgur size upon submit
+ - display errors from form submissions
+ - check imgur size upon submit - https://stackoverflow.com/questions/11442712/get-width-height-of-remote-image-from-url
  - check duplicate character upon submit
  - check character exists?
  - sanitize inputs
  - import from discord messages
 
-styling
-
-
-
- - add submission models
- - display submissions on main page
- - form for submitting submissions
- - comments
- - characters
- - admin view
-
  - https
  - expire JWT session?
+
+styling
+ - collapsible sections
+
+
+

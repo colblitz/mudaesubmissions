@@ -26,7 +26,10 @@ function NavigationBar() {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
               <NavLink className="nav-link" to="/">
-                Submissions
+                Home
+              </NavLink>
+              <NavLink className="nav-link" to="/allSeries">
+                Series (SCS)
               </NavLink>
               {token && (
                 <NavLink className="nav-link" to="/mySeries">
