@@ -17,8 +17,11 @@ design
 
 refactoring
  - turn character submission into a component
+ - rename components (PageUser, PageSeriesSubmissions, CardSeries, CardCharacter, PageMySeries, PageMyCharacters)
 
 functionality:
+ - user needs to store username + discriminator
+
  - see all character submissions
  - see other user's page
  - edit character

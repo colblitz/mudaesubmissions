@@ -1,6 +1,7 @@
 const expressRouter = require("express").Router();
 const authMiddleware = require("./authMiddleware");
 
+const User = require("../models/user");
 const Series = require("../models/series");
 const Character = require("../models/character");
 
@@ -11,6 +12,27 @@ expressRouter.get("/getAllSeries", async (req, res) => {
     // console.log(series);
     return res.json(series);
   } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+});
+
+expressRouter.get("/user/:username", async (req, res) => {
+  try {
+    const username = req.params.username;
+    console.log("request for user: ", username);
+    const user = await User.findOne({ discordUsername: username });
+    console.log("got user with id: ", user);
+
+    const series = await Series.find({ user: user._id }).populate("characters");
+    const characters = await Character.find({ user: user._id, series: null });
+
+    console.log('return series: %j', series);
+    console.log("returning characters: ", characters);
+
+    return res.json({ series: series, characters: characters });
+  } catch (error) {
+    console.log("error getting user submissions");
+    console.log(error);
     return res.status(400).json({ message: error.message });
   }
 });

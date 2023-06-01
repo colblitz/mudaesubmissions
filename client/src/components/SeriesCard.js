@@ -10,6 +10,7 @@ import CharacterCard from "./CharacterCard";
 const SeriesCard = (props) => {
   const { token } = useContext(Context);
 
+  const readonly = props.readonly;
   const series = props.series;
   const [characters, setCharacters] = useState(series.characters);
 
@@ -31,7 +32,7 @@ const SeriesCard = (props) => {
         <Container fluid>
           <Row>
             {characters.map((character) => (
-              <CharacterCard character={character} characterRemoved={handleCharacterRemoved} />
+              <CharacterCard character={character} characterRemoved={handleCharacterRemoved} readonly={readonly} />
             ))}
           </Row>
         </Container>

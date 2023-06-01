@@ -9,7 +9,9 @@ import { Context } from "./ContextProvider";
 
 const CharacterCard = (props) => {
   const { token } = useContext(Context);
+
   const character = props.character;
+  const readonly = props.readonly;
   const characterRemoved = props.characterRemoved;
 
   const handleRemoveCharacter = async function (e, characterId) {
@@ -92,9 +94,10 @@ const CharacterCard = (props) => {
               {"\n"}Role: {character.role}
               {"\n"}Note: {character.note}
             </div>
+            {!readonly && (
             <Button variant="danger" size="sm" onClick={(e) => handleRemoveCharacter(e, character._id)}>
               Remove
-            </Button>
+            </Button>)}
           </div>
         </div>    
       </Card>

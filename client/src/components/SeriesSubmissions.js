@@ -16,29 +16,24 @@ const SeriesSubmissions = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token) {
-    	console.log("Not logged in, redirecting");
-      navigate("/");
-    } else {
-    	console.log("Is logged in, getting all submissions");
-      const request = {
-        method: "GET",
-        url: "/submission/getAllSeries",
-        headers: { Authorization: `Bearer ${token}` },
-      };
-      axios.request(request).then((response) => {
-        console.log("response for get all submissions ===>>", response.data);
-        setSubmittedSeries(response.data);
-      });
-    }
+    console.log("Getting all submissions");
+    const request = {
+      method: "GET",
+      url: "/submission/getAllSeries",
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    axios.request(request).then((response) => {
+      console.log("response for get all submissions ===>>", response.data);
+      setSubmittedSeries(response.data);
+    });
   }, []);
 
 
   return (
-    <div className="user-page">
+    <div className="series-page">
       <Container fluid>
         {submittedSeries.map((series) => (
-          <SeriesCard series={series}/>
+          <SeriesCard series={series} readonly={true} />
         ))}
       </Container>
     </div>
