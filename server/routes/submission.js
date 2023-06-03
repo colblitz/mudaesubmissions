@@ -4,17 +4,11 @@ const authMiddleware = require("./authMiddleware");
 const User = require("../models/user");
 const Series = require("../models/series");
 const Character = require("../models/character");
+const Comment = require("../models/comment");
 
-
-expressRouter.get("/getAllSeries", async (req, res) => {
-  try {
-    const series = await Series.find({}, "-user").populate("characters");
-    // console.log(series);
-    return res.json(series);
-  } catch (error) {
-    return res.status(400).json({ message: error.message });
-  }
-});
+////////////////////////////////////////////////////////////////////////////////
+// User
+////////////////////////////////////////////////////////////////////////////////
 
 expressRouter.get("/user/:username", async (req, res) => {
   try {
@@ -55,6 +49,20 @@ expressRouter.get("/getUserSubmissions", authMiddleware, async (req, res) => {
   }
 });
 
+////////////////////////////////////////////////////////////////////////////////
+// Series
+////////////////////////////////////////////////////////////////////////////////
+
+expressRouter.get("/getAllSeries", async (req, res) => {
+  try {
+    const series = await Series.find({}, "-user").populate("characters").populate("comments");
+    // console.log(series);
+    return res.json(series);
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+});
+
 expressRouter.post("/addSeries", authMiddleware, async (req, res) => {
   try {
     console.log("adding series");
@@ -65,32 +73,6 @@ expressRouter.post("/addSeries", authMiddleware, async (req, res) => {
     return res.json(newSeries);
   } catch (error) {
     console.log("error adding series");
-    console.log(error);
-    return res.status(400).json({ message: error.message });
-  }
-});
-
-expressRouter.post("/addCharacter", authMiddleware, async (req, res) => {
-  try {
-    console.log("adding character: ", req.body);
-    const { userId } = req.user;
-    // const { name, gender, type, series, seriesName, imgurLink, source, role, note } = req.body;
-    // TODO: validate name + details
-    const newCharacter = await Character.create({...req.body, user: userId });
-    if (req.body.series) {
-      console.log("This was for a series");
-      // await Series.findOneAndUpdate({ _id: req.body.series }, { $inc: { no_of_likes: 1 }, "$push": { "users": userInfo } });
-      await Series.findOneAndUpdate({ _id: req.body.series }, { "$push": { "characters": newCharacter._id } });
-
-      const series = await Series.find({ user: userId }).populate("characters");
-      console.log("returning series: ", series);
-
-      return res.json({ series: series });
-    } else {
-      return res.json(newCharacter);  
-    }
-  } catch (error) {
-    console.log("error adding character");
     console.log(error);
     return res.status(400).json({ message: error.message });
   }
@@ -124,6 +106,35 @@ expressRouter.delete("/removeSeries", authMiddleware, async (req, res) => {
   }
 });
 
+////////////////////////////////////////////////////////////////////////////////
+// Character
+////////////////////////////////////////////////////////////////////////////////
+
+expressRouter.post("/addCharacter", authMiddleware, async (req, res) => {
+  try {
+    console.log("adding character: ", req.body);
+    const { userId } = req.user;
+    // const { name, gender, type, series, seriesName, imgurLink, source, role, note } = req.body;
+    // TODO: validate name + details
+    const newCharacter = await Character.create({...req.body, user: userId });
+    if (req.body.series) {
+      console.log("This was for a series");
+      // await Series.findOneAndUpdate({ _id: req.body.series }, { $inc: { no_of_likes: 1 }, "$push": { "users": userInfo } });
+      await Series.findOneAndUpdate({ _id: req.body.series }, { "$push": { "characters": newCharacter._id } });
+
+      const series = await Series.find({ user: userId }).populate("characters");
+      console.log("returning series: ", series);
+
+      return res.json({ series: series });
+    } else {
+      return res.json(newCharacter);  
+    }
+  } catch (error) {
+    console.log("error adding character");
+    console.log(error);
+    return res.status(400).json({ message: error.message });
+  }
+});
 
 expressRouter.delete("/removeCharacter", authMiddleware, async (req, res) => {
   try {
@@ -148,6 +159,71 @@ expressRouter.delete("/removeCharacter", authMiddleware, async (req, res) => {
     return res.status(400).json({ message: error.message });
   }
 });
+
+////////////////////////////////////////////////////////////////////////////////
+// Comment
+////////////////////////////////////////////////////////////////////////////////
+
+expressRouter.post("/addComment", authMiddleware, async (req, res) => {
+  try {
+    console.log("adding comment");
+    const { userId } = req.user;
+    const newComment = await Comment.create({...req.body, user: userId });
+    console.log("added comment");
+    console.log(newComment);
+
+    await Series.findOneAndUpdate({ _id: req.body.series }, { "$push": { "comments": newComment._id } });
+
+    return res.json(newComment);
+  } catch (error) {
+    console.log("error adding comment");
+    console.log(error);
+    return res.status(400).json({ message: error.message });
+  }
+});
+
+expressRouter.put("/updateComment", authMiddleware, async (req, res) => {
+  try {
+    console.log("updating comment");
+    const { userId } = req.user;
+
+
+    const comment = await Comment.findOneAndUpdate(
+      { _id: req.body.commentId }, 
+      { "$set": { "rating": req.body.rating, "text": req.body.text } });
+    return res.json(comment);
+  } catch (error) {
+    console.log("error adding comment");
+    console.log(error);
+    return res.status(400).json({ message: error.message });
+  }
+});
+
+expressRouter.delete("/removeComment", authMiddleware, async (req, res) => {
+  try {
+    console.log("removing comment");
+    const { userId } = req.user;
+
+    console.log(req.body.commentId);
+
+    console.log("deleting doc with id: ");
+    await Comment.deleteOne({ _id: req.body.commentId });
+
+    return res.json();
+  } catch (error) {
+    console.log("error removing comment");
+    console.log(error);
+    return res.status(400).json({ message: error.message });
+  }
+});
+
+
+
+
+
+
+
+
 
 
 

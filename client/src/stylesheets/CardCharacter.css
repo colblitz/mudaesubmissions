@@ -1,12 +1,12 @@
-.character-card {
+.card-character {
   border-left: 4px solid rgb(255, 156, 44);
 }
 
-.character-card .grid-container {
+.card-character .grid-container {
   max-width: 516px;
 }
 
-.character-card .grid-container .grid {
+.card-character .grid-container .grid {
   overflow: hidden;
   padding: 0.5rem 1rem 1rem 0.75rem;
   display: grid;
@@ -14,7 +14,7 @@
   grid-template-rows: auto;
 }
 
-.character-card .grid-container .grid .embedAuthor{
+.card-character .grid-container .grid .embedAuthor{
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -24,18 +24,18 @@
   grid-column: 1/1;
 }
 
-.character-card .grid-container .grid .embedMargin {
+.card-character .grid-container .grid .embedMargin {
   margin-top: 8px;
 }
 
-.character-card .grid-container .grid .embedAuthorName {
+.card-character .grid-container .grid .embedAuthorName {
   font-size: 0.875rem;
   font-weight: 600;
   unicode-bidi: plaintext;
   text-align: left;
 }
 
-.character-card .grid-container .grid .embedText {
+.card-character .grid-container .grid .embedText {
   min-width: 0;
   font-size: 0.875rem;
     line-height: 1.125rem;
@@ -46,7 +46,7 @@
     text-align: left;
 }
 
-.character-card .grid-container .grid .embedImage {
+.card-character .grid-container .grid .embedImage {
   display: block;
   -o-object-fit: fill;
   object-fit: fill;
@@ -55,7 +55,7 @@
   contain: paint;
 }
 
-.character-card .grid-container .grid .imageContainer {
+.card-character .grid-container .grid .imageContainer {
   -webkit-box-orient: horizontal;
   -ms-flex-flow: row nowrap;
   flex-flow: row nowrap;
@@ -65,7 +65,7 @@
   height: 100%;
 }
 
-.character-card .grid-container .grid .imageWrapper {
+.card-character .grid-container .grid .imageWrapper {
   display: block;
   position: relative;
   -webkit-user-select: text;
@@ -79,7 +79,7 @@
   aspect-ratio: 193 / 300;
 }
 
-.character-card .grid-container .grid .image {
+.card-character .grid-container .grid .image {
   max-width: 193px;
   max-height: 300px;
   width: 100%;
@@ -87,11 +87,11 @@
   aspect-ratio: 193 / 300;
 }
 
-.character-card .grid-container .grid .emojiContainer {
+.card-character .grid-container .grid .emojiContainer {
   display: inline-block;
 }
 
-.character-card .grid-container .grid .emojiContainer img {
+.card-character .grid-container .grid .emojiContainer img {
   height: 18px;
 }
 
@@ -99,7 +99,7 @@
 
 /*
 
-.character-card .grid-container .grid .embedFooter {
+.card-character .grid-container .grid .embedFooter {
   min-width: 0;
   font-size: 0.875rem;
     line-height: 1.125rem;
@@ -112,7 +112,7 @@
 
 
 
-.character-card .grid-container .grid .imageContent {
+.card-character .grid-container .grid .imageContent {
       -webkit-box-orient: vertical;
     -ms-flex-flow: column nowrap;
     flex-flow: column nowrap;
@@ -121,17 +121,17 @@
 
 }
 
-.character-card .grid-container .grid .embedWrapper {
+.card-character .grid-container .grid .embedWrapper {
   
 }
 
-.character-card .grid-container .grid .embedMedia {
+.card-character .grid-container .grid .embedMedia {
   grid-column: 1/1;
     border-radius: 4px;
     contain: paint;
 }
 
-.character-card .grid-container .grid .embedImage {
+.card-character .grid-container .grid .embedImage {
       display: block;
     -o-object-fit: fill;
     object-fit: fill;
@@ -139,7 +139,7 @@
 
 
 
-.character-card .grid-container .grid .imageWrapper {
+.card-character .grid-container .grid .imageWrapper {
       display: block;
     position: relative;
     -webkit-user-select: text;

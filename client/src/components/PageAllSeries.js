@@ -5,9 +5,9 @@ import axios from "axios";
 import { Container, Button, Form, Row, Col, Card, Table, FloatingLabel } from "react-bootstrap";
 
 import { Context } from "./ContextProvider";
-import SeriesCard from "./SeriesCard";
+import CardSeries from "./CardSeries";
 
-const SeriesSubmissions = () => {
+const PageAllSeries = () => {
   const { token, username } = useContext(Context);
 
   const [loading, setLoading] = useState(true);
@@ -33,11 +33,11 @@ const SeriesSubmissions = () => {
     <div className="series-page">
       <Container fluid>
         {submittedSeries.map((series) => (
-          <SeriesCard series={series} readonly={true} />
+          <CardSeries series={series} readonly={true} showComments={true} />
         ))}
       </Container>
     </div>
   );
 };
 
-export default SeriesSubmissions;
+export default PageAllSeries;

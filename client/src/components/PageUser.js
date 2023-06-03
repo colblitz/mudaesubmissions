@@ -5,10 +5,10 @@ import axios from "axios";
 import { Container, Row } from "react-bootstrap";
 
 import { Context } from "./ContextProvider";
-import SeriesCard from "./SeriesCard";
-import CharacterCard from "./CharacterCard";
+import CardSeries from "./CardSeries";
+import CardCharacter from "./CardCharacter";
 
-const UserPage = () => {
+const PageUser = () => {
   const { token, myUsername } = useContext(Context);
   const { username } = useParams();
   const [userSeries, setUserSeries] = useState([]);
@@ -39,7 +39,7 @@ const UserPage = () => {
       <Container fluid>
         <Row>
           {userCharacters.map((character) => (
-            <CharacterCard character={character} readonly={true} />
+            <CardCharacter character={character} readonly={true} />
           ))}
         </Row>
       </Container>
@@ -47,11 +47,11 @@ const UserPage = () => {
       These are their series:
       <Container fluid>
         {userSeries.map((series) => (
-          <SeriesCard series={series} readonly={true} />
+          <CardSeries series={series} readonly={true} />
         ))}
       </Container>
     </div>
   );
 };
 
-export default UserPage;
+export default PageUser;

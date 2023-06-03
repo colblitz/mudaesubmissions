@@ -5,9 +5,9 @@ import axios from "axios";
 import { Container, Button, Form, Row, Col, Card, Table, FloatingLabel } from "react-bootstrap";
 
 import { Context } from "./ContextProvider";
-import CharacterCard from "./CharacterCard";
+import CardCharacter from "./CardCharacter";
 
-const UserCharacterSubmissions = () => {
+const PageMyCharacters = () => {
   const { token, username } = useContext(Context);
 
   const [loading, setLoading] = useState(true);
@@ -163,7 +163,7 @@ const UserCharacterSubmissions = () => {
       <Container fluid>
         <Row>
           {submittedCharacters.map((character) => (
-            <CharacterCard character={character} characterRemoved={handleCharacterRemoved} />
+            <CardCharacter character={character} characterRemoved={handleCharacterRemoved} />
           ))}
         </Row>
       </Container>
@@ -171,4 +171,4 @@ const UserCharacterSubmissions = () => {
   );
 };
 
-export default UserCharacterSubmissions;
+export default PageMyCharacters;

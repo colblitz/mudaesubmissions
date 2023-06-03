@@ -9,9 +9,9 @@ import axios from "axios";
 import { Container, Button, Form, Row, Col, Card, Table, FloatingLabel } from "react-bootstrap";
 
 import { Context } from "./ContextProvider";
-import SeriesCard from "./SeriesCard";
+import CardSeries from "./CardSeries";
 
-const UserSeriesSubmissions = () => {
+const PageMySeries = () => {
   const { token, username } = useContext(Context);
 
   const [loading, setLoading] = useState(true);
@@ -123,6 +123,7 @@ const UserSeriesSubmissions = () => {
         console.log("response for add character ===>>");
         console.log(response.data.series);
         console.log(typeof(response.data.series));
+        setSubmittedSeries([]);
         setSubmittedSeries(response.data.series);
         setLoading(false);
       })
@@ -238,11 +239,11 @@ const UserSeriesSubmissions = () => {
 
       <Container fluid>
         {submittedSeries.map((series) => (
-          <SeriesCard series={series}/>
+          <CardSeries series={series}/>
         ))}
       </Container>
     </div>
   );
 };
 
-export default UserSeriesSubmissions;
+export default PageMySeries;

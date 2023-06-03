@@ -47,3 +47,7 @@ styling
 
 
 
+debug
+ - my series page: character doesn't show up in series after adding series
+ - remove character from character array in series when removing
+ - after adding comment, comment form doesn't reset

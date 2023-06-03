@@ -3,11 +3,11 @@ import { useContext } from "react";
 import { Col, Card, Button } from 'react-bootstrap';
 import axios from "axios";
 
-import "../stylesheets/CharacterCard.css";
+import "../stylesheets/CardCharacter.css";
 
 import { Context } from "./ContextProvider";
 
-const CharacterCard = (props) => {
+const CardCharacter = (props) => {
   const { token } = useContext(Context);
 
   const character = props.character;
@@ -32,7 +32,45 @@ const CharacterCard = (props) => {
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
+
+  // disableNewlines = (event) => {
+  //   const keyCode = event.keyCode || event.which;
+
+  //   if (keyCode === 13) {
+  //     event.returnValue = false;
+  //     if (event.preventDefault) {
+  //       event.preventDefault();
+  //     }
+  //   }
+  // };
+
+  // pasteAsPlainText = (event) => {
+  //   event.preventDefault();
+
+  //   const text = event.clipboardData.getData('text/plain');
+  //   document.execCommand('insertHTML', false, text);
+  // };
+
+  // handleContentEditableUpdate = (event) => {
+  //   const {
+  //     currentTarget: {
+  //       dataset: { row, column },
+  //     },
+  //     target: { value },
+  //   } = event
+
+  //   this.setState(({ store }) => {
+  //     return {
+  //       store: store.map((item) => {
+  //         return item.id === parseInt(row, 10)
+  //           ? { ...item, [column]: value }
+  //           : item
+  //       }),
+  //     }
+  //   })
+  // }
+
 
   const female = (
     <span className="emojiContainer">
@@ -67,11 +105,13 @@ const CharacterCard = (props) => {
 
   return (
     <Col xs="auto">
-      <Card className="character-card">
+      <Card className="card-character">
         <div className="grid-container">
           <div className="grid">
             <div className="embedAuthor embedMargin">
-              <span className="embedAuthorName">{character.name}</span>
+              <span className="embedAuthorName">
+                {character.name}
+              </span>
             </div>
             <div className="embedText embedMargin">
               {character.seriesName}
@@ -105,4 +145,4 @@ const CharacterCard = (props) => {
   )
 };
 
-export default CharacterCard;
+export default CardCharacter;
