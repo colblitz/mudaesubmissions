@@ -172,7 +172,7 @@ expressRouter.post("/addComment", authMiddleware, async (req, res) => {
     console.log("added comment");
     console.log(newComment);
 
-    await Series.findOneAndUpdate({ _id: req.body.series }, { "$push": { "comments": newComment._id } });
+    await Series.findOneAndUpdate({ _id: req.body.series }, { "$push": { "comments": { "$each": [ newComment._id ], "$position": 0 } } });
 
     return res.json(newComment);
   } catch (error) {

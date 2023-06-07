@@ -239,7 +239,7 @@ const PageMySeries = () => {
 
       <Container fluid>
         {submittedSeries.map((series) => (
-          <CardSeries series={series}/>
+          <CardSeries key={series._id} series={series}/>
         ))}
       </Container>
     </div>

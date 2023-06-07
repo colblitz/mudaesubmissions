@@ -26,6 +26,12 @@ const CardSeries = (props) => {
 
   console.log("this series has characters: ", characters);
 
+  useEffect(() => {
+    console.log("in use effect, with props", props);
+    setCharacters(props.series.characters);
+    // setScrolled(scrollYPos >= 1);
+  }, [props.series]);
+
   const handleCharacterRemoved = async function (characterId) {
     console.log(`Removing character with id ${characterId} from state array`)
     setCharacters(characters.filter(function(character) {
@@ -41,8 +47,9 @@ const CardSeries = (props) => {
   };
 
   const handleAddComment = async function (newComment) {
-    console.log("Adding new comment");
-    setComments([...comments, newComment]);
+    console.log("Adding new comment to beginning?", newComment);
+    const newComments = [newComment, ...comments];
+    setComments(newComments);
   };
 
   return (
@@ -55,7 +62,7 @@ const CardSeries = (props) => {
         <Container fluid>
           <Row>
             {characters.map((character) => (
-              <CardCharacter character={character} characterRemoved={handleCharacterRemoved} readonly={readonly} />
+              <CardCharacter key={character._id} character={character} characterRemoved={handleCharacterRemoved} readonly={readonly} />
             ))}
           </Row>
         </Container>
@@ -64,10 +71,10 @@ const CardSeries = (props) => {
         <Card.Body>
           <Table>
             <tbody>
-              {comments && comments.map((comment) => (
-                <CardComment comment={comment} seriesId={series._id} />
-              ))}
               <CardComment seriesId={series._id} handleAddComment={handleAddComment} />
+              {comments && comments.map((comment) => (
+                <CardComment key={comment._id} comment={comment} seriesId={series._id} />
+              ))}
             </tbody>
           </Table>
         </Card.Body>

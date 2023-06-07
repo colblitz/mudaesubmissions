@@ -1,43 +1,35 @@
 design
- - u4g - select 2 out of your character submissions?
+ - u4g - select 2 out of your character submissions? separate?
  - when viewing another user's, "submit as me" button - removes from their view? copies?
  - collapsible sections - https://react-bootstrap.netlify.app/docs/utilities/transitions/#collapse vs tabs?
- - dropdown series vs 
-
-
- - page for user overview
- - page for series submission/editing
- - page for U4G submission/editing
- - page for character submission/editing
-
- - view all series submissions
-
- - view all U4Gs by series
- - view U4Gs by user
+ - dropdown series vs form in each series
 
 refactoring
- - turn character submission into a component
- - rename components (PageUser, PageSeriesSubmissions, CardSeries, CardCharacter, PageMySeries, PageMyCharacters)
-
+ 
 functionality:
+ - delete comment button
+ - make character component similar to comment (add vs edit)
+ - make series component similar to comment (add vs edit)
+ - page to see all character submissions (grouped by series)
+
+ - display errors from form submissions
+ - sanitize inputs
+
+ - validate series submission - 10 max
+ - validate series submission - 100 characters
+ - validate series submission - series exists / uniqueness
+ - validate character submission - image size https://stackoverflow.com/questions/11442712/get-width-height-of-remote-image-from-url
+ - validate character submission - character uniqueness
+ - validate character submission - character exists
+
  - user needs to store username + discriminator
-
- - see all character submissions
- - see other user's page
- - edit character
- - edit series
- - submission restrictions - 10 series, 100 chars in series
-
- - comments
  - role restrictions
  - admin voting
  - admin views
- - display errors from form submissions
- - check imgur size upon submit - https://stackoverflow.com/questions/11442712/get-width-height-of-remote-image-from-url
- - check duplicate character upon submit
- - check character exists?
- - sanitize inputs
+
  - import from discord messages
+ - import from csv
+ - click to edit instead of edit button
 
  - https
  - expire JWT session?
@@ -45,9 +37,5 @@ functionality:
 styling
  - collapsible sections
 
-
-
 debug
- - my series page: character doesn't show up in series after adding series
  - remove character from character array in series when removing
- - after adding comment, comment form doesn't reset
